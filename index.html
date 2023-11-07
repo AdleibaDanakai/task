@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Решение оригинальной алгоритмической задачи</title>
+</head>
+<body>
+    <h1>Решение оригинальной алгоритмической задачи</h1>
+
+    <p>Введите вещественное число A для вычисления x в соответствии с условием задачи.</p>
+    
+    <p>Дано вещественное число A. Вычислить х = a2+4+5 при a < 62; в противном случае x = 1/(a2) + 4a + 5) 
+    </p>
+
+
+    <form id="algorithm-form">
+        <label for="problem-description">Описание задачи:</label>
+        <textarea id="problem-description" rows="4" required></textarea>
+        <label for="input-data">вещественное число A:</label>
+        <input type="number" step="any" id="input-data" required>
+        <button type="submit">Решить</button>
+    </form>
+
+    <p id="result"></p>
+
+    <button id="sendDataButton">Отправить на сервер Bing</button>
+
+    <script>
+        document.getElementById("algorithm-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            var description = document.getElementById("problem-description").value;
+            var inputData = parseFloat(document.getElementById("input-data").value);
+            var result;
+
+            if (inputData < 62) {
+                result = inputData * 2 + 4 + 5;
+            } else {
+                result = 1 / (inputData * 2) + 4 * inputData + 5;
+            }
+
+            document.getElementById("result").textContent = "Результат: x = " + result;
+        });
+
+        document.getElementById("sendDataButton").addEventListener("click", function() {
+            var description = document.getElementById("problem-description").value;
+            var inputData = parseFloat(document.getElementById("input-data").value);
+            var result;
+
+            if (inputData < 62) {
+                result = inputData * inputData + 4 + 5;
+            } else {
+                result = 1 / (inputData * inputData) + 4 * inputData + 5;
+            }
+
+            var bingURL = "https://www.bing.com/search?q=" + encodeURIComponent(JSON.stringify({
+                description: description,
+                inputData: inputData,
+                result: result
+            }));
+            window.open(bingURL, '_blank');
+
+            alert("Данные отправлены на сервер Bing.");
+        });
+    </script>
+</body>
+</html>
